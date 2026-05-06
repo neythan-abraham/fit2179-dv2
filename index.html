@@ -24,16 +24,20 @@
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "width": 500,
       "height": 300,
-      "title": "Threatened Fauna by Taxonomic Group and Status",
+      "title": "Threatened Species by Group and Status",
       "data": {
         "url": "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/threatened_species.csv"
       },
+      "transform": [{
+        "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other Animals'",
+        "as": "Group"
+      }],
       "mark": "bar",
       "encoding": {
         "x": {
-          "field": "Class",
+          "field": "Group",
           "type": "nominal",
-          "title": "Taxonomic Group",
+          "title": "Species Group",
           "axis": {"labelAngle": -30}
         },
         "y": {
@@ -51,7 +55,7 @@
           }
         },
         "tooltip": [
-          {"field": "Class", "type": "nominal", "title": "Group"},
+          {"field": "Group", "type": "nominal", "title": "Group"},
           {"field": "Threatened status", "type": "nominal", "title": "Status"},
           {"aggregate": "count", "type": "quantitative", "title": "Count"}
         ]
