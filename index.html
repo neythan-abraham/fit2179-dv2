@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Australia's Threatened Wildlife</title>
-  </head>
-  <body>
-    <h1>Australia's Threatened Wildlife</h1>
-    <p>Visualisation coming soon.</p>
-  </body>
+<head>
+  <title>Australia's Threatened Wildlife</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.4em; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <h1>Australia's Threatened Wildlife</h1>
+  <p>Australia has one of the highest rates of species loss in the world. This visualisation explores which species are most at risk and why.</p>
+
+  <h2>Threatened Species by Group</h2>
+  <p>Mammals and birds make up the largest share of threatened fauna in Australia.</p>
+  <div id="chart1"></div>
+
+  <script>
+    vegaEmbed('#chart1', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 500,
+      "height": 300,
+      "title": "Threatened Fauna by Taxonomic Group and Status",
+      "data": {
+        "url": "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/threatened_species.csv"
+      },
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "Class",
+          "type": "nominal",
+          "title": "Taxonomic Group",
+          "axis": {"labelAngle": -30}
+        },
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "title": "Number of Species"
+        },
+        "color": {
+          "field": "Threatened status",
+          "type": "nominal",
+          "title": "Conservation Status",
+          "scale": {
+            "domain": ["Vulnerable", "Endangered", "Critically Endangered", "Extinct"],
+            "range": ["#f4a261", "#e76f51", "#c1121f", "#370617"]
+          }
+        },
+        "tooltip": [
+          {"field": "Class", "type": "nominal", "title": "Group"},
+          {"field": "Threatened status", "type": "nominal", "title": "Status"},
+          {"aggregate": "count", "type": "quantitative", "title": "Count"}
+        ]
+      }
+    });
+  </script>
+</body>
 </html>
