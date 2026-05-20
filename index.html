@@ -70,14 +70,14 @@
     vegaEmbed('#chart2', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "width": 500,
-      "height": 400,
+      "height": 500,
       "title": "Koala Occurrence Records Across Australia (2020–2026)",
       "projection": {"type": "mercator"},
       "layer": [
         {
           "data": {
-            "url": "https://raw.githubusercontent.com/topojson/world-atlas/master/countries/110m.json",
-            "format": {"type": "topojson", "feature": "countries"}
+            "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+            "format": {"type": "json", "property": "features"}
           },
           "mark": {"type": "geoshape", "fill": "#e8f4ea", "stroke": "#ccc"}
         },
