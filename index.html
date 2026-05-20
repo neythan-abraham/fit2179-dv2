@@ -62,5 +62,42 @@
       }
     });
   </script>
+  <h2>Where Are Koalas Found?</h2>
+  <p>Koala sightings are concentrated along the east coast, particularly in Victoria, NSW and Queensland.</p>
+  <div id="chart2"></div>
+
+  <script>
+    vegaEmbed('#chart2', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 500,
+      "height": 400,
+      "title": "Koala Occurrence Records Across Australia (2020–2026)",
+      "projection": {"type": "mercator"},
+      "layer": [
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/topojson/world-atlas/master/countries/110m.json",
+            "format": {"type": "topojson", "feature": "countries"}
+          },
+          "mark": {"type": "geoshape", "fill": "#e8f4ea", "stroke": "#ccc"}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/koala_occurrences.csv"
+          },
+          "mark": {"type": "circle", "opacity": 0.5, "size": 8, "color": "#2d6a4f"},
+          "encoding": {
+            "longitude": {"field": "decimalLongitude", "type": "quantitative"},
+            "latitude": {"field": "decimalLatitude", "type": "quantitative"},
+            "tooltip": [
+              {"field": "locality", "type": "nominal", "title": "Location"},
+              {"field": "stateProvince", "type": "nominal", "title": "State"},
+              {"field": "year", "type": "quantitative", "title": "Year"}
+            ]
+          }
+        }
+      ]
+    });
+  </script>
 </body>
 </html>
