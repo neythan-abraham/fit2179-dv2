@@ -1,0 +1,29 @@
+Group,status,count,total
+Birds,Vulnerable,77,193
+Birds,Endangered,69,193
+Birds,Critically Endangered,18,193
+Birds,Extinct,22,193
+Fish,Vulnerable,22,82
+Fish,Endangered,31,82
+Fish,Critically Endangered,28,82
+Fish,Extinct,0,82
+Frogs,Vulnerable,16,55
+Frogs,Endangered,15,55
+Frogs,Critically Endangered,18,55
+Frogs,Extinct,4,55
+Mammals,Vulnerable,57,152
+Mammals,Endangered,47,152
+Mammals,Critically Endangered,9,152
+Mammals,Extinct,39,152
+Plants,Vulnerable,600,1510
+Plants,Endangered,620,1510
+Plants,Critically Endangered,270,1510
+Plants,Extinct,20,1510
+Reptiles,Vulnerable,34,101
+Reptiles,Endangered,40,101
+Reptiles,Critically Endangered,27,101
+Reptiles,Extinct,0,101
+Other,Vulnerable,16,111
+Other,Endangered,48,111
+Other,Critically Endangered,47,111
+Other,Extinct,0,111
