@@ -1,91 +1,330 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Australia's Threatened Wildlife</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.4em; margin-top: 40px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #0d1f0f;
+      color: #e8e0d0;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(to bottom, #0d1f0f, #1a3a1c);
+      padding: 80px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid #2d5a2f;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8em;
+      font-weight: 900;
+      color: #f0c060;
+      line-height: 1.1;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    .hero p {
+      font-size: 1.1em;
+      color: #a8c5a0;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* STATS ROW */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+      font-weight: 700;
+      color: #f0c060;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.85em;
+      color: #a8c5a0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 40px;
+      border-bottom: 1px solid #1e3a20;
+    }
+
+    .section-label {
+      font-size: 0.75em;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #f0c060;
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #e8e0d0;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .section p {
+      color: #a8c5a0;
+      max-width: 650px;
+      margin-bottom: 35px;
+      font-size: 0.95em;
+    }
+
+    /* TWO COLUMN LAYOUT */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .chart-card {
+      background: #122614;
+      border: 1px solid #2d5a2f;
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .chart-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1em;
+      color: #f0c060;
+      margin-bottom: 8px;
+    }
+
+    .chart-card p {
+      font-size: 0.82em;
+      color: #7a9e7a;
+      margin-bottom: 18px;
+    }
+
+    /* FULL WIDTH CHART */
+    .full-chart {
+      background: #122614;
+      border: 1px solid #2d5a2f;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 40px;
+    }
+
+    .full-chart h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1em;
+      color: #f0c060;
+      margin-bottom: 8px;
+    }
+
+    .full-chart p {
+      font-size: 0.82em;
+      color: #7a9e7a;
+      margin-bottom: 18px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 0.8em;
+      color: #4a6a4a;
+      border-top: 1px solid #1e3a20;
+    }
+
+    /* VEGA OVERRIDES */
+    .vega-embed { width: 100% !important; }
+    .vega-embed canvas, .vega-embed svg { width: 100% !important; }
   </style>
 </head>
 <body>
-  <h1>Australia's Threatened Wildlife</h1>
-  <p>Australia has one of the highest rates of species loss in the world. This visualisation explores which species are most at risk and why.</p>
 
-  <h2>Threatened Species by Group</h2>
-  <p>Mammals and birds make up the largest share of threatened fauna in Australia.</p>
-  <div id="chart1"></div>
+  <!-- HERO -->
+  <div class="hero">
+    <p class="section-label">Data Visualisation — Australian Wildlife</p>
+    <h1>Australia's Silent Extinction Crisis</h1>
+    <p>Australia is one of the world's most biodiverse nations — and one of its most destructive. More mammal species have gone extinct here than anywhere else on Earth.</p>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-number">2,200+</span>
+        <span class="stat-label">Threatened Species</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">39</span>
+        <span class="stat-label">Mammals Extinct</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">#1</span>
+        <span class="stat-label">Worst Mammal Extinctions Globally</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: THE BIG PICTURE -->
+  <div class="section">
+    <p class="section-label">Section 1 — The Scale of the Crisis</p>
+    <h2>Who Is at Risk?</h2>
+    <p>From plants to frogs, the extinction crisis spans every corner of Australia's natural world. Plants make up the largest share of threatened species, but mammals face the steepest odds.</p>
+
+    <div class="two-col">
+      <div class="chart-card">
+        <h3>Threatened species by taxonomic group</h3>
+        <p>Stacked by conservation status — from vulnerable to extinct</p>
+        <div id="chart1"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Proportion of threatened fauna by status</h3>
+        <p>How severe is the threat across animal groups?</p>
+        <div id="chart2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: WHERE -->
+  <div class="section">
+    <p class="section-label">Section 2 — Where Are They?</p>
+    <h2>A Crisis Concentrated on the Coast</h2>
+    <p>Koala sightings — once common across eastern Australia — are now clustered in shrinking pockets of habitat along the coast.</p>
+
+    <div class="full-chart">
+      <h3>Koala occurrence records across Australia (2020–2026)</h3>
+      <p>Each dot represents a verified koala sighting from the Atlas of Living Australia</p>
+      <div id="chart3"></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: STATES -->
+  <div class="section">
+    <p class="section-label">Section 3 — State by State</p>
+    <h2>Which States Bear the Burden?</h2>
+    <p>Threatened species are not evenly distributed. Some states carry a disproportionate share of Australia's extinction risk.</p>
+
+    <div class="full-chart">
+      <h3>Threatened species count by state and group</h3>
+      <p>A heatmap showing where each taxonomic group is most at risk</p>
+      <div id="chart4"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026)</p>
+    <p style="margin-top:8px">Created by Neythan Abraham · FIT2179 Data Visualisation 2 · Monash University · 2026</p>
+  </div>
 
   <script>
+    const speciesUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/threatened_species.csv";
+    const koalaUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/koala_occurrences.csv";
+    const ausUrl = "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson";
+
+    // CHART 1 — Lollipop chart
     vegaEmbed('#chart1', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 500,
+      "width": "container",
       "height": 300,
-      "title": "Threatened Species by Group and Status",
-      "data": {
-        "url": "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/threatened_species.csv"
-      },
+      "background": "transparent",
+      "data": {"url": speciesUrl},
       "transform": [{
-        "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other Animals'",
+        "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'",
         "as": "Group"
       }],
-      "mark": "bar",
+      "layer": [
+        {
+          "mark": {"type": "bar", "size": 3},
+          "encoding": {
+            "x": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "labelAngle": -20}, "title": null},
+            "y": {"aggregate": "count", "type": "quantitative", "axis": {"labelColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "Number of species"},
+            "color": {"field": "Threatened status", "type": "nominal",
+              "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
+              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
+            }
+          }
+        },
+        {
+          "mark": {"type": "point", "filled": true, "size": 80},
+          "encoding": {
+            "x": {"field": "Group", "type": "nominal"},
+            "y": {"aggregate": "count", "type": "quantitative"},
+            "color": {"field": "Threatened status", "type": "nominal",
+              "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}
+            }
+          }
+        }
+      ]
+    }, {"actions": false});
+
+    // CHART 2 — Donut/arc chart
+    vegaEmbed('#chart2', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container",
+      "height": 300,
+      "background": "transparent",
+      "data": {"url": speciesUrl},
+      "transform": [
+        {"filter": "datum.Kingdom !== 'Plantae'"}
+      ],
+      "mark": {"type": "arc", "innerRadius": 60, "outerRadius": 120},
       "encoding": {
-        "x": {
-          "field": "Group",
-          "type": "nominal",
-          "title": "Species Group",
-          "axis": {"labelAngle": -30}
-        },
-        "y": {
-          "aggregate": "count",
-          "type": "quantitative",
-          "title": "Number of Species"
-        },
+        "theta": {"aggregate": "count", "type": "quantitative"},
         "color": {
           "field": "Threatened status",
           "type": "nominal",
-          "title": "Conservation Status",
-          "scale": {
-            "domain": ["Vulnerable", "Endangered", "Critically Endangered", "Extinct"],
-            "range": ["#f4a261", "#e76f51", "#c1121f", "#370617"]
-          }
+          "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
         },
         "tooltip": [
-          {"field": "Group", "type": "nominal", "title": "Group"},
           {"field": "Threatened status", "type": "nominal", "title": "Status"},
           {"aggregate": "count", "type": "quantitative", "title": "Count"}
         ]
       }
-    });
-  </script>
-  <h2>Where Are Koalas Found?</h2>
-  <p>Koala sightings are concentrated along the east coast, particularly in Victoria, NSW and Queensland.</p>
-  <div id="chart2"></div>
+    }, {"actions": false});
 
-  <script>
-    vegaEmbed('#chart2', {
+    // CHART 3 — Dot map
+    vegaEmbed('#chart3', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 500,
-      "height": 500,
-      "title": "Koala Occurrence Records Across Australia (2020–2026)",
+      "width": "container",
+      "height": 480,
+      "background": "transparent",
       "projection": {"type": "mercator"},
       "layer": [
         {
-          "data": {
-            "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
-            "format": {"type": "json", "property": "features"}
-          },
-          "mark": {"type": "geoshape", "fill": "#e8f4ea", "stroke": "#ccc"}
+          "data": {"url": ausUrl, "format": {"type": "json", "property": "features"}},
+          "mark": {"type": "geoshape", "fill": "#1a3a1c", "stroke": "#2d5a2f", "strokeWidth": 1}
         },
         {
-          "data": {
-            "url": "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/koala_occurrences.csv"
-          },
-          "mark": {"type": "circle", "opacity": 0.5, "size": 8, "color": "#2d6a4f"},
+          "data": {"url": koalaUrl},
+          "mark": {"type": "circle", "opacity": 0.6, "size": 6, "color": "#f0c060"},
           "encoding": {
             "longitude": {"field": "decimalLongitude", "type": "quantitative"},
             "latitude": {"field": "decimalLatitude", "type": "quantitative"},
@@ -97,7 +336,37 @@
           }
         }
       ]
-    });
+    }, {"actions": false});
+
+    // CHART 4 — Heatmap species × state
+    vegaEmbed('#chart4', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container",
+      "height": 300,
+      "background": "transparent",
+      "data": {"url": speciesUrl},
+      "transform": [
+        {"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"},
+        {"fold": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"], "as": ["State","Present"]},
+        {"filter": "datum.Present === 'Yes'"}
+      ],
+      "mark": {"type": "rect", "cornerRadius": 3},
+      "encoding": {
+        "x": {"field": "State", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}, "title": "State"},
+        "y": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}, "title": null},
+        "color": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "scale": {"scheme": "greens"},
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Species count"}
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal"},
+          {"field": "Group", "type": "nominal", "title": "Group"},
+          {"aggregate": "count", "type": "quantitative", "title": "Species count"}
+        ]
+      }
+    }, {"actions": false});
   </script>
 </body>
 </html>
