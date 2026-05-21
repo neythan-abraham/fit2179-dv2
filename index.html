@@ -237,6 +237,18 @@
     </div>
   </div>
 
+  <!-- SECTION 5 -->
+  <div class="section">
+    <p class="section-label">Section 5 — Rankings Across States</p>
+    <h2>Which Group Is Most at Risk in Each State?</h2>
+    <p>The ranking of threatened taxonomic groups varies dramatically across Australia's states and territories. Plants dominate in most states, but mammals and birds face disproportionate risk in others.</p>
+    <div class="full-chart">
+      <h3>Ranking of threatened species groups by state</h3>
+      <p>Each line tracks how a taxonomic group ranks across states — lower rank means more species at risk</p>
+      <div id="chart6"></div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div class="footer">
     <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026)</p>
@@ -411,6 +423,86 @@
             "tooltip": [
               {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
               {"field": "count", "type": "quantitative", "title": "Threatened species"}
+            ]
+          }
+        }
+      ]
+    }, {"actions": false});
+
+    // CHART 6 — Bump chart
+    vegaEmbed('#chart6', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container",
+      "height": 400,
+      "background": "transparent",
+      "data": {"url": speciesUrl},
+      "transform": [
+        {
+          "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'",
+          "as": "Group"
+        },
+        {
+          "fold": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
+          "as": ["State","Present"]
+        },
+        {"filter": "datum.Present === 'Yes'"},
+        {
+          "aggregate": [{"op": "count", "as": "count"}],
+          "groupby": ["State","Group"]
+        },
+        {
+          "window": [{"op": "rank", "as": "rank"}],
+          "sort": [{"field": "count", "order": "descending"}],
+          "groupby": ["State"]
+        }
+      ],
+      "layer": [
+        {
+          "mark": {"type": "line", "strokeWidth": 2, "opacity": 0.8},
+          "encoding": {
+            "x": {
+              "field": "State",
+              "type": "nominal",
+              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+              "title": "State"
+            },
+            "y": {
+              "field": "rank",
+              "type": "quantitative",
+              "sort": "ascending",
+              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+              "title": "Rank (1 = most threatened)"
+            },
+            "color": {
+              "field": "Group",
+              "type": "nominal",
+              "scale": {
+                "domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"],
+                "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]
+              },
+              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
+            },
+            "detail": {"field": "Group"}
+          }
+        },
+        {
+          "mark": {"type": "point", "filled": true, "size": 80},
+          "encoding": {
+            "x": {"field": "State", "type": "nominal"},
+            "y": {"field": "rank", "type": "quantitative", "sort": "ascending"},
+            "color": {
+              "field": "Group",
+              "type": "nominal",
+              "scale": {
+                "domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"],
+                "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]
+              }
+            },
+            "tooltip": [
+              {"field": "Group", "type": "nominal", "title": "Group"},
+              {"field": "State", "type": "nominal", "title": "State"},
+              {"field": "rank", "type": "quantitative", "title": "Rank"},
+              {"field": "count", "type": "quantitative", "title": "Species count"}
             ]
           }
         }
