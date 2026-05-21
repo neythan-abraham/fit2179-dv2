@@ -10,179 +10,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: #0d1f0f;
-      color: #e8e0d0;
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-    }
-
-    .hero {
-      background: linear-gradient(to bottom, #0d1f0f, #1a3a1c);
-      padding: 80px 40px 60px;
-      text-align: center;
-      border-bottom: 1px solid #2d5a2f;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.8em;
-      font-weight: 900;
-      color: #f0c060;
-      line-height: 1.1;
-      max-width: 800px;
-      margin: 0 auto 20px;
-    }
-
-    .hero p {
-      font-size: 1.1em;
-      color: #a8c5a0;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-
+    body { background-color: #0d1f0f; color: #e8e0d0; font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.7; }
+    .hero { background: linear-gradient(to bottom, #0d1f0f, #1a3a1c); padding: 80px 40px 60px; text-align: center; border-bottom: 1px solid #2d5a2f; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.8em; font-weight: 900; color: #f0c060; line-height: 1.1; max-width: 800px; margin: 0 auto 20px; }
+    .hero p { font-size: 1.1em; color: #a8c5a0; max-width: 600px; margin: 0 auto 40px; }
+    .stats-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; margin-top: 40px; }
     .stat { text-align: center; }
-
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 3em;
-      font-weight: 700;
-      color: #f0c060;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.85em;
-      color: #a8c5a0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 70px 40px;
-      border-bottom: 1px solid #1e3a20;
-    }
-
-    .section-label {
-      font-size: 0.75em;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: #f0c060;
-      margin-bottom: 10px;
-    }
-
-    .section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
-      font-weight: 700;
-      color: #e8e0d0;
-      margin-bottom: 15px;
-      line-height: 1.2;
-    }
-
-    .section p {
-      color: #a8c5a0;
-      max-width: 650px;
-      margin-bottom: 35px;
-      font-size: 0.95em;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .chart-card {
-      background: #122614;
-      border: 1px solid #2d5a2f;
-      border-radius: 12px;
-      padding: 25px;
-    }
-
-    .chart-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1em;
-      color: #f0c060;
-      margin-bottom: 8px;
-    }
-
-    .chart-card p {
-      font-size: 0.82em;
-      color: #7a9e7a;
-      margin-bottom: 18px;
-    }
-
-    .full-chart {
-      background: #122614;
-      border: 1px solid #2d5a2f;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 40px;
-    }
-
-    .full-chart h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1em;
-      color: #f0c060;
-      margin-bottom: 8px;
-    }
-
-    .full-chart p {
-      font-size: 0.82em;
-      color: #7a9e7a;
-      margin-bottom: 18px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 0.8em;
-      color: #4a6a4a;
-      border-top: 1px solid #1e3a20;
-    }
-
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 3em; font-weight: 700; color: #f0c060; display: block; }
+    .stat-label { font-size: 0.85em; color: #a8c5a0; text-transform: uppercase; letter-spacing: 1px; }
+    .section { max-width: 1100px; margin: 0 auto; padding: 70px 40px; border-bottom: 1px solid #1e3a20; }
+    .section-label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 3px; color: #f0c060; margin-bottom: 10px; }
+    .section h2 { font-family: 'Playfair Display', serif; font-size: 2.2em; font-weight: 700; color: #e8e0d0; margin-bottom: 15px; line-height: 1.2; }
+    .section p { color: #a8c5a0; max-width: 650px; margin-bottom: 35px; font-size: 0.95em; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .chart-card { background: #122614; border: 1px solid #2d5a2f; border-radius: 12px; padding: 25px; }
+    .chart-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; color: #f0c060; margin-bottom: 8px; }
+    .chart-card p { font-size: 0.82em; color: #7a9e7a; margin-bottom: 18px; }
+    .full-chart { background: #122614; border: 1px solid #2d5a2f; border-radius: 12px; padding: 25px; margin-bottom: 40px; }
+    .full-chart h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; color: #f0c060; margin-bottom: 8px; }
+    .full-chart p { font-size: 0.82em; color: #7a9e7a; margin-bottom: 18px; }
+    .footer { text-align: center; padding: 40px; font-size: 0.8em; color: #4a6a4a; border-top: 1px solid #1e3a20; }
     .vega-embed { width: 100% !important; }
     .vega-embed canvas, .vega-embed svg { width: 100% !important; }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
   <div class="hero">
     <p class="section-label">Data Visualisation — Australian Wildlife</p>
     <h1>Australia's Silent Extinction Crisis</h1>
     <p>Australia is one of the world's most biodiverse nations — and one of its most destructive. More mammal species have gone extinct here than anywhere else on Earth.</p>
     <div class="stats-row">
-      <div class="stat">
-        <span class="stat-number">2,200+</span>
-        <span class="stat-label">Threatened Species</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">39</span>
-        <span class="stat-label">Mammals Extinct</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">#1</span>
-        <span class="stat-label">Worst Mammal Extinctions Globally</span>
-      </div>
+      <div class="stat"><span class="stat-number">2,200+</span><span class="stat-label">Threatened Species</span></div>
+      <div class="stat"><span class="stat-number">39</span><span class="stat-label">Mammals Extinct</span></div>
+      <div class="stat"><span class="stat-number">#1</span><span class="stat-label">Worst Mammal Extinctions Globally</span></div>
     </div>
   </div>
 
-  <!-- SECTION 1 -->
   <div class="section">
     <p class="section-label">Section 1 — The Scale of the Crisis</p>
     <h2>Who Is at Risk?</h2>
@@ -201,7 +65,6 @@
     </div>
   </div>
 
-  <!-- SECTION 2 -->
   <div class="section">
     <p class="section-label">Section 2 — Where Are They?</p>
     <h2>A Crisis Concentrated on the Coast</h2>
@@ -213,7 +76,6 @@
     </div>
   </div>
 
-  <!-- SECTION 3 -->
   <div class="section">
     <p class="section-label">Section 3 — State by State</p>
     <h2>Which States Bear the Burden?</h2>
@@ -225,7 +87,6 @@
     </div>
   </div>
 
-  <!-- SECTION 4 -->
   <div class="section">
     <p class="section-label">Section 4 — Geographic Distribution</p>
     <h2>Which States Bear the Most Species at Risk?</h2>
@@ -237,7 +98,6 @@
     </div>
   </div>
 
-  <!-- SECTION 5 -->
   <div class="section">
     <p class="section-label">Section 5 — Rankings Across States</p>
     <h2>Which Group Is Most at Risk in Each State?</h2>
@@ -249,7 +109,17 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <div class="section">
+    <p class="section-label">Section 6 — Proportional Risk</p>
+    <h2>How Severe Is the Threat Within Each Group?</h2>
+    <p>Not all threatened species face the same level of risk. This Marimekko chart reveals both the size of each group and the severity of threats within it — wider columns mean more species, darker segments mean greater danger.</p>
+    <div class="full-chart">
+      <h3>Threat severity and scale across taxonomic groups</h3>
+      <p>Column width = total species count · colour intensity = conservation status severity</p>
+      <div id="chart7"></div>
+    </div>
+  </div>
+
   <div class="footer">
     <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026)</p>
     <p style="margin-top:8px">Created by Neythan Abraham · FIT2179 Data Visualisation 2 · Monash University · 2026</p>
@@ -259,28 +129,21 @@
     const speciesUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/threatened_species.csv";
     const koalaUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/koala_occurrences.csv";
     const ausUrl = "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson";
+    const mariUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/marimekko.csv";
 
     // CHART 1 — Lollipop chart
     vegaEmbed('#chart1', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 300,
-      "background": "transparent",
+      "width": "container", "height": 300, "background": "transparent",
       "data": {"url": speciesUrl},
-      "transform": [{
-        "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'",
-        "as": "Group"
-      }],
+      "transform": [{"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"}],
       "layer": [
         {
           "mark": {"type": "bar", "size": 3},
           "encoding": {
             "x": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "labelAngle": -20}, "title": null},
             "y": {"aggregate": "count", "type": "quantitative", "axis": {"labelColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "Number of species"},
-            "color": {"field": "Threatened status", "type": "nominal",
-              "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
-              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
-            }
+            "color": {"field": "Threatened status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}}
           }
         },
         {
@@ -288,9 +151,7 @@
           "encoding": {
             "x": {"field": "Group", "type": "nominal"},
             "y": {"aggregate": "count", "type": "quantitative"},
-            "color": {"field": "Threatened status", "type": "nominal",
-              "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}
-            }
+            "color": {"field": "Threatened status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}}
           }
         }
       ]
@@ -299,50 +160,31 @@
     // CHART 2 — Donut chart
     vegaEmbed('#chart2', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 300,
-      "background": "transparent",
+      "width": "container", "height": 300, "background": "transparent",
       "data": {"url": speciesUrl},
       "transform": [{"filter": "datum.Kingdom !== 'Plantae'"}],
       "mark": {"type": "arc", "innerRadius": 60, "outerRadius": 120},
       "encoding": {
         "theta": {"aggregate": "count", "type": "quantitative"},
-        "color": {
-          "field": "Threatened status",
-          "type": "nominal",
-          "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
-          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
-        },
-        "tooltip": [
-          {"field": "Threatened status", "type": "nominal", "title": "Status"},
-          {"aggregate": "count", "type": "quantitative", "title": "Count"}
-        ]
+        "color": {"field": "Threatened status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}},
+        "tooltip": [{"field": "Threatened status", "type": "nominal", "title": "Status"}, {"aggregate": "count", "type": "quantitative", "title": "Count"}]
       }
     }, {"actions": false});
 
     // CHART 3 — Dot map
     vegaEmbed('#chart3', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 480,
-      "background": "transparent",
+      "width": "container", "height": 480, "background": "transparent",
       "projection": {"type": "mercator"},
       "layer": [
-        {
-          "data": {"url": ausUrl, "format": {"type": "json", "property": "features"}},
-          "mark": {"type": "geoshape", "fill": "#1a3a1c", "stroke": "#2d5a2f", "strokeWidth": 1}
-        },
+        {"data": {"url": ausUrl, "format": {"type": "json", "property": "features"}}, "mark": {"type": "geoshape", "fill": "#1a3a1c", "stroke": "#2d5a2f", "strokeWidth": 1}},
         {
           "data": {"url": koalaUrl},
           "mark": {"type": "circle", "opacity": 0.6, "size": 6, "color": "#f0c060"},
           "encoding": {
             "longitude": {"field": "decimalLongitude", "type": "quantitative"},
             "latitude": {"field": "decimalLatitude", "type": "quantitative"},
-            "tooltip": [
-              {"field": "locality", "type": "nominal", "title": "Location"},
-              {"field": "stateProvince", "type": "nominal", "title": "State"},
-              {"field": "year", "type": "quantitative", "title": "Year"}
-            ]
+            "tooltip": [{"field": "locality", "type": "nominal", "title": "Location"}, {"field": "stateProvince", "type": "nominal", "title": "State"}, {"field": "year", "type": "quantitative", "title": "Year"}]
           }
         }
       ]
@@ -351,9 +193,7 @@
     // CHART 4 — Heatmap
     vegaEmbed('#chart4', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 300,
-      "background": "transparent",
+      "width": "container", "height": 300, "background": "transparent",
       "data": {"url": speciesUrl},
       "transform": [
         {"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"},
@@ -364,124 +204,46 @@
       "encoding": {
         "x": {"field": "State", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}, "title": "State"},
         "y": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}, "title": null},
-        "color": {
-          "aggregate": "count",
-          "type": "quantitative",
-          "scale": {"scheme": "greens"},
-          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Species count"}
-        },
-        "tooltip": [
-          {"field": "State", "type": "nominal"},
-          {"field": "Group", "type": "nominal", "title": "Group"},
-          {"aggregate": "count", "type": "quantitative", "title": "Species count"}
-        ]
+        "color": {"aggregate": "count", "type": "quantitative", "scale": {"scheme": "greens"}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Species count"}},
+        "tooltip": [{"field": "State", "type": "nominal"}, {"field": "Group", "type": "nominal", "title": "Group"}, {"aggregate": "count", "type": "quantitative", "title": "Species count"}]
       }
     }, {"actions": false});
 
     // CHART 5 — Choropleth map
     vegaEmbed('#chart5', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 500,
-      "background": "transparent",
+      "width": "container", "height": 500, "background": "transparent",
       "projection": {"type": "mercator"},
-      "layer": [
-        {
-          "data": {
-            "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
-            "format": {"type": "json", "property": "features"}
-          },
-          "transform": [
-            {
-              "lookup": "properties.STATE_NAME",
-              "from": {
-                "data": {
-                  "values": [
-                    {"state": "New South Wales", "count": 760},
-                    {"state": "Queensland", "count": 612},
-                    {"state": "Victoria", "count": 357},
-                    {"state": "Western Australia", "count": 614},
-                    {"state": "South Australia", "count": 319},
-                    {"state": "Tasmania", "count": 230},
-                    {"state": "Northern Territory", "count": 155},
-                    {"state": "Australian Capital Territory", "count": 71}
-                  ]
-                },
-                "key": "state",
-                "fields": ["count"]
-              }
-            }
-          ],
-          "mark": {"type": "geoshape", "stroke": "#2d5a2f", "strokeWidth": 1},
-          "encoding": {
-            "color": {
-              "field": "count",
-              "type": "quantitative",
-              "scale": {"scheme": "greens"},
-              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Species count"}
-            },
-            "tooltip": [
-              {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-              {"field": "count", "type": "quantitative", "title": "Threatened species"}
-            ]
-          }
+      "layer": [{
+        "data": {"url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson", "format": {"type": "json", "property": "features"}},
+        "transform": [{"lookup": "properties.STATE_NAME", "from": {"data": {"values": [{"state": "New South Wales", "count": 760}, {"state": "Queensland", "count": 612}, {"state": "Victoria", "count": 357}, {"state": "Western Australia", "count": 614}, {"state": "South Australia", "count": 319}, {"state": "Tasmania", "count": 230}, {"state": "Northern Territory", "count": 155}, {"state": "Australian Capital Territory", "count": 71}]}, "key": "state", "fields": ["count"]}}],
+        "mark": {"type": "geoshape", "stroke": "#2d5a2f", "strokeWidth": 1},
+        "encoding": {
+          "color": {"field": "count", "type": "quantitative", "scale": {"scheme": "greens"}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Species count"}},
+          "tooltip": [{"field": "properties.STATE_NAME", "type": "nominal", "title": "State"}, {"field": "count", "type": "quantitative", "title": "Threatened species"}]
         }
-      ]
+      }]
     }, {"actions": false});
 
     // CHART 6 — Bump chart
     vegaEmbed('#chart6', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container",
-      "height": 400,
-      "background": "transparent",
+      "width": "container", "height": 400, "background": "transparent",
       "data": {"url": speciesUrl},
       "transform": [
-        {
-          "calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'",
-          "as": "Group"
-        },
-        {
-          "fold": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
-          "as": ["State","Present"]
-        },
+        {"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"},
+        {"fold": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"], "as": ["State","Present"]},
         {"filter": "datum.Present === 'Yes'"},
-        {
-          "aggregate": [{"op": "count", "as": "count"}],
-          "groupby": ["State","Group"]
-        },
-        {
-          "window": [{"op": "rank", "as": "rank"}],
-          "sort": [{"field": "count", "order": "descending"}],
-          "groupby": ["State"]
-        }
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["State","Group"]},
+        {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "count", "order": "descending"}], "groupby": ["State"]}
       ],
       "layer": [
         {
           "mark": {"type": "line", "strokeWidth": 2, "opacity": 0.8},
           "encoding": {
-            "x": {
-              "field": "State",
-              "type": "nominal",
-              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
-              "title": "State"
-            },
-            "y": {
-              "field": "rank",
-              "type": "quantitative",
-              "sort": "ascending",
-              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
-              "title": "Rank (1 = most threatened)"
-            },
-            "color": {
-              "field": "Group",
-              "type": "nominal",
-              "scale": {
-                "domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"],
-                "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]
-              },
-              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}
-            },
+            "x": {"field": "State", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "State"},
+            "y": {"field": "rank", "type": "quantitative", "sort": "ascending", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "Rank (1 = most threatened)"},
+            "color": {"field": "Group", "type": "nominal", "scale": {"domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}},
             "detail": {"field": "Group"}
           }
         },
@@ -490,23 +252,45 @@
           "encoding": {
             "x": {"field": "State", "type": "nominal"},
             "y": {"field": "rank", "type": "quantitative", "sort": "ascending"},
-            "color": {
-              "field": "Group",
-              "type": "nominal",
-              "scale": {
-                "domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"],
-                "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]
-              }
-            },
-            "tooltip": [
-              {"field": "Group", "type": "nominal", "title": "Group"},
-              {"field": "State", "type": "nominal", "title": "State"},
-              {"field": "rank", "type": "quantitative", "title": "Rank"},
-              {"field": "count", "type": "quantitative", "title": "Species count"}
-            ]
+            "color": {"field": "Group", "type": "nominal", "scale": {"domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]}},
+            "tooltip": [{"field": "Group", "type": "nominal", "title": "Group"}, {"field": "State", "type": "nominal", "title": "State"}, {"field": "rank", "type": "quantitative", "title": "Rank"}, {"field": "count", "type": "quantitative", "title": "Species count"}]
           }
         }
       ]
+    }, {"actions": false});
+
+    // CHART 7 — Marimekko chart
+    vegaEmbed('#chart7', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 500, "background": "transparent",
+      "data": {"url": mariUrl},
+      "transform": [
+        {"calculate": "datum.count / datum.total", "as": "proportion"},
+        {"window": [{"op": "sum", "field": "total", "as": "totalAll"}], "frame": [null, null]},
+        {"calculate": "datum.total / datum.totalAll", "as": "groupWidth"},
+        {"window": [{"op": "sum", "field": "groupWidth", "as": "xEnd"}], "groupby": ["status"], "frame": [null, 0]},
+        {"calculate": "datum.xEnd - datum.groupWidth", "as": "xStart"},
+        {"window": [{"op": "sum", "field": "proportion", "as": "yEnd"}], "groupby": ["Group"], "sort": [{"field": "status"}], "frame": [null, 0]},
+        {"calculate": "datum.yEnd - datum.proportion", "as": "yStart"}
+      ],
+      "mark": {"type": "rect", "strokeWidth": 1, "stroke": "#0d1f0f"},
+      "encoding": {
+        "x": {"field": "xStart", "type": "quantitative", "title": "← Smaller group          Larger group →", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "format": "%", "gridColor": "#1e3a20"}},
+        "x2": {"field": "xEnd"},
+        "y": {"field": "yStart", "type": "quantitative", "title": "Proportion by status", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "format": "%", "gridColor": "#1e3a20"}},
+        "y2": {"field": "yEnd"},
+        "color": {
+          "field": "status", "type": "nominal",
+          "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Status"}
+        },
+        "tooltip": [
+          {"field": "Group", "type": "nominal", "title": "Group"},
+          {"field": "status", "type": "nominal", "title": "Status"},
+          {"field": "count", "type": "quantitative", "title": "Species count"},
+          {"field": "total", "type": "quantitative", "title": "Group total"}
+        ]
+      }
     }, {"actions": false});
 
   </script>
