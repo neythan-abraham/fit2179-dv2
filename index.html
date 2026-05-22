@@ -120,6 +120,17 @@
     </div>
   </div>
 
+  <div class="section">
+    <p class="section-label">Section 7 — The Lost</p>
+    <h2>Every Square Is a Species Gone Forever</h2>
+    <p>Australia has lost 39 mammal species since European settlement — more than any other country on Earth. Each square below represents one species, lost forever. Hover to learn their name, when they disappeared, and what drove them to extinction.</p>
+    <div class="full-chart">
+      <h3>Australia's extinct species since European settlement</h3>
+      <p>Each square = one species · colour = primary cause of extinction</p>
+      <div id="chart8"></div>
+    </div>
+  </div>
+
   <div class="footer">
     <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026)</p>
     <p style="margin-top:8px">Created by Neythan Abraham · FIT2179 Data Visualisation 2 · Monash University · 2026</p>
@@ -130,6 +141,7 @@
     const koalaUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/koala_occurrences.csv";
     const ausUrl = "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson";
     const mariUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/marimekko.csv";
+    const extinctUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/extinct_mammals.csv";
 
     // CHART 1 — Lollipop chart
     vegaEmbed('#chart1', {
@@ -279,16 +291,39 @@
         "x2": {"field": "xEnd"},
         "y": {"field": "yStart", "type": "quantitative", "title": "Proportion by status", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "format": "%", "gridColor": "#1e3a20"}},
         "y2": {"field": "yEnd"},
+        "color": {"field": "status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Status"}},
+        "tooltip": [{"field": "Group", "type": "nominal", "title": "Group"}, {"field": "status", "type": "nominal", "title": "Status"}, {"field": "count", "type": "quantitative", "title": "Species count"}, {"field": "total", "type": "quantitative", "title": "Group total"}]
+      }
+    }, {"actions": false});
+
+    // CHART 8 — Isotype/unit chart
+    vegaEmbed('#chart8', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 400, "background": "transparent",
+      "data": {"url": extinctUrl},
+      "transform": [
+        {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "year", "order": "ascending"}]},
+        {"calculate": "floor((datum.rank - 1) / 8)", "as": "row"},
+        {"calculate": "(datum.rank - 1) % 8", "as": "col"}
+      ],
+      "mark": {"type": "square", "filled": true, "size": 600},
+      "encoding": {
+        "x": {"field": "col", "type": "ordinal", "axis": null, "title": null},
+        "y": {"field": "row", "type": "ordinal", "axis": null, "title": null, "sort": "ascending"},
         "color": {
-          "field": "status", "type": "nominal",
-          "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]},
-          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Status"}
+          "field": "cause",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Hunting","Predators","Habitat loss","Disease","Climate change"],
+            "range": ["#c0392b","#e07030","#f0c060","#9b59b6","#5b8dd9"]
+          },
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Primary cause"}
         },
         "tooltip": [
-          {"field": "Group", "type": "nominal", "title": "Group"},
-          {"field": "status", "type": "nominal", "title": "Status"},
-          {"field": "count", "type": "quantitative", "title": "Species count"},
-          {"field": "total", "type": "quantitative", "title": "Group total"}
+          {"field": "name", "type": "nominal", "title": "Species"},
+          {"field": "year", "type": "quantitative", "title": "Last seen"},
+          {"field": "cause", "type": "nominal", "title": "Cause"},
+          {"field": "state", "type": "nominal", "title": "State"}
         ]
       }
     }, {"actions": false});
