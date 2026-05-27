@@ -54,7 +54,7 @@
     <div class="two-col">
       <div class="chart-card">
         <h3>Threatened species by taxonomic group</h3>
-        <p>Stacked by conservation status — from vulnerable to extinct</p>
+        <p>Total count per group — hover for details</p>
         <div id="chart1"></div>
       </div>
       <div class="chart-card">
@@ -148,22 +148,28 @@
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "width": "container", "height": 300, "background": "transparent",
       "data": {"url": speciesUrl},
-      "transform": [{"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"}],
+      "transform": [
+        {"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"},
+        {"aggregate": [{"op": "count", "as": "total"}], "groupby": ["Group"]}
+      ],
       "layer": [
         {
-          "mark": {"type": "bar", "size": 3},
+          "mark": {"type": "rule", "strokeWidth": 2, "color": "#a8c5a0"},
           "encoding": {
-            "x": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "labelAngle": -20}, "title": null},
-            "y": {"aggregate": "count", "type": "quantitative", "axis": {"labelColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "Number of species"},
-            "color": {"field": "Threatened status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"}}
+            "x": {"field": "Group", "type": "nominal", "axis": {"labelColor": "#a8c5a0", "labelAngle": -20}, "title": null},
+            "y": {"field": "total", "type": "quantitative", "axis": {"labelColor": "#a8c5a0", "gridColor": "#1e3a20"}, "title": "Number of species"},
+            "y2": {"value": 0}
           }
         },
         {
-          "mark": {"type": "point", "filled": true, "size": 80},
+          "mark": {"type": "point", "filled": true, "size": 120, "color": "#f0c060"},
           "encoding": {
             "x": {"field": "Group", "type": "nominal"},
-            "y": {"aggregate": "count", "type": "quantitative"},
-            "color": {"field": "Threatened status", "type": "nominal", "scale": {"domain": ["Vulnerable","Endangered","Critically Endangered","Extinct"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b"]}}
+            "y": {"field": "total", "type": "quantitative"},
+            "tooltip": [
+              {"field": "Group", "type": "nominal", "title": "Group"},
+              {"field": "total", "type": "quantitative", "title": "Total species"}
+            ]
           }
         }
       ]
@@ -311,12 +317,8 @@
         "x": {"field": "col", "type": "ordinal", "axis": null, "title": null},
         "y": {"field": "row", "type": "ordinal", "axis": null, "title": null, "sort": "ascending"},
         "color": {
-          "field": "cause",
-          "type": "nominal",
-          "scale": {
-            "domain": ["Hunting","Predators","Habitat loss","Disease","Climate change"],
-            "range": ["#c0392b","#e07030","#f0c060","#9b59b6","#5b8dd9"]
-          },
+          "field": "cause", "type": "nominal",
+          "scale": {"domain": ["Hunting","Predators","Habitat loss","Disease","Climate change"], "range": ["#c0392b","#e07030","#f0c060","#9b59b6","#5b8dd9"]},
           "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Primary cause"}
         },
         "tooltip": [
