@@ -131,8 +131,19 @@
     </div>
   </div>
 
+  <div class="section">
+    <p class="section-label">Section 8 — Size vs Survival</p>
+    <h2>Does Body Size Predict Extinction Risk?</h2>
+    <p>Research suggests larger mammals face greater extinction risk due to slower reproduction and higher space requirements. This annotated scatter plot explores that relationship across Australia's threatened mammals — with key species labelled for context.</p>
+    <div class="full-chart">
+      <h3>Body mass vs extinction risk score for threatened Australian mammals</h3>
+      <p>Each circle = one species · size = body mass · colour = taxonomic group · risk score derived from EPBC conservation status</p>
+      <div id="chart9"></div>
+    </div>
+  </div>
+
   <div class="footer">
-    <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026)</p>
+    <p>Data sources: Department of Climate Change, Energy, the Environment and Water — Threatened Species State Lists (2026) · Atlas of Living Australia — Koala Occurrence Records (2026) · Body mass data compiled from EPBC species profiles</p>
     <p style="margin-top:8px">Created by Neythan Abraham · FIT2179 Data Visualisation 2 · Monash University · 2026</p>
   </div>
 
@@ -142,6 +153,7 @@
     const ausUrl = "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson";
     const mariUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/marimekko.csv";
     const extinctUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/extinct_mammals.csv";
+    const scatterUrl = "https://raw.githubusercontent.com/neythan-abraham/fit2179-dv2/refs/heads/main/scatter_mammals.csv";
 
     // CHART 1 — Lollipop chart
     vegaEmbed('#chart1', {
@@ -328,6 +340,62 @@
           {"field": "state", "type": "nominal", "title": "State"}
         ]
       }
+    }, {"actions": false});
+
+    // CHART 9 — Annotated scatter plot
+    vegaEmbed('#chart9', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 500, "background": "transparent",
+      "data": {"url": scatterUrl},
+      "layer": [
+        {
+          "mark": {"type": "circle", "opacity": 0.8},
+          "encoding": {
+            "x": {
+              "field": "body_mass_kg", "type": "quantitative",
+              "scale": {"type": "log"},
+              "title": "Body mass (kg, log scale)",
+              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}
+            },
+            "y": {
+              "field": "extinction_risk_score", "type": "quantitative",
+              "title": "Extinction risk score (derived from EPBC status)",
+              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+              "scale": {"domain": [2.5, 4.5]}
+            },
+            "size": {
+              "field": "body_mass_kg", "type": "quantitative",
+              "scale": {"range": [50, 600]},
+              "legend": null
+            },
+            "color": {
+              "field": "group", "type": "nominal",
+              "scale": {
+                "domain": ["Possum","Wombat","Potoroo","Macropod","Marsupial","Monotreme","Bandicoot","Dasyurid","Rodent","Quoll"],
+                "range": ["#f0c060","#e07030","#c0392b","#a8c5a0","#5b8dd9","#9b59b6","#1abc9c","#e74c3c","#95a5a6","#f39c12"]
+              },
+              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Group"}
+            },
+            "tooltip": [
+              {"field": "name", "type": "nominal", "title": "Species"},
+              {"field": "body_mass_kg", "type": "quantitative", "title": "Body mass (kg)"},
+              {"field": "status", "type": "nominal", "title": "Status"},
+              {"field": "extinction_risk_score", "type": "quantitative", "title": "Risk score"},
+              {"field": "group", "type": "nominal", "title": "Group"}
+            ]
+          }
+        },
+        {
+          "transform": [{"filter": "datum.name === 'Tasmanian Devil' || datum.name === 'Koala' || datum.name === 'Northern Hairy-nosed Wombat' || datum.name === 'Gilbert\\'s Potoroo' || datum.name === 'Platypus'"}],
+          "mark": {"type": "text", "align": "left", "dx": 8, "dy": -4, "fontSize": 11, "fontStyle": "italic"},
+          "encoding": {
+            "x": {"field": "body_mass_kg", "type": "quantitative", "scale": {"type": "log"}},
+            "y": {"field": "extinction_risk_score", "type": "quantitative"},
+            "text": {"field": "name", "type": "nominal"},
+            "color": {"value": "#e8e0d0"}
+          }
+        }
+      ]
     }, {"actions": false});
 
   </script>
