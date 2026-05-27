@@ -138,7 +138,7 @@
         <div id="chart8"></div>
       </div>
       <div class="chart-card">
-        <h3>Extinction causes as a streamgraph</h3>
+        <h3>Extinction causes across time periods</h3>
         <p>How the primary causes of extinction have shifted across decades</p>
         <div id="chart11"></div>
       </div>
@@ -157,12 +157,12 @@
   </div>
 
   <div class="section">
-    <p class="section-label">Section 9 — Composition Over Time</p>
-    <h2>How Has the Crisis Evolved?</h2>
-    <p>This streamgraph shows how the mix of threatened species groups has shifted — revealing which groups have grown most rapidly in their share of Australia's extinction burden.</p>
+    <p class="section-label">Section 9 — Composition Across States</p>
+    <h2>How Does the Crisis Vary State to State?</h2>
+    <p>This streamgraph shows the relative composition of threatened species groups across Australia's states — revealing how the extinction burden shifts from plants to animals as we move from smaller to larger states.</p>
     <div class="full-chart">
-      <h3>Streamgraph of threatened species by group and state</h3>
-      <p>Flowing bands show the relative composition of threatened species across states</p>
+      <h3>Threatened species composition by group across states</h3>
+      <p>Flowing bands show the relative share of each taxonomic group — hover to explore</p>
       <div id="chart12"></div>
     </div>
   </div>
@@ -421,7 +421,7 @@
       ]
     }, {"actions": false});
 
-    // CHART 11 — Streamgraph of extinction causes over time
+    // CHART 11 — Stacked area of extinction causes over time
     vegaEmbed('#chart11', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "width": "container", "height": 400, "background": "transparent",
@@ -430,17 +430,17 @@
         {"calculate": "datum.year < 1850 ? '1788–1849' : datum.year < 1900 ? '1850–1899' : datum.year < 1950 ? '1900–1949' : datum.year < 2000 ? '1950–1999' : '2000–present'", "as": "period"},
         {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["period","cause"]}
       ],
-      "mark": {"type": "area"},
+      "mark": {"type": "area", "interpolate": "monotone", "opacity": 0.9},
       "encoding": {
         "x": {
           "field": "period", "type": "ordinal",
           "sort": ["1788–1849","1850–1899","1900–1949","1950–1999","2000–present"],
-          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20", "labelAngle": -20},
           "title": "Period"
         },
         "y": {
           "field": "count", "type": "quantitative",
-          "stack": "center",
+          "stack": "zero",
           "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
           "title": "Number of extinctions"
         },
@@ -464,7 +464,7 @@
         {"filter": "datum.Present === 'Yes'"},
         {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["State","Group"]}
       ],
-      "mark": {"type": "area"},
+      "mark": {"type": "area", "interpolate": "monotone", "opacity": 0.9},
       "encoding": {
         "x": {
           "field": "State", "type": "nominal",
