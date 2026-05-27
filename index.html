@@ -68,11 +68,18 @@
   <div class="section">
     <p class="section-label">Section 2 — Where Are They?</p>
     <h2>A Crisis Concentrated on the Coast</h2>
-    <p>Koala sightings — once common across eastern Australia — are now clustered in shrinking pockets of habitat along the coast.</p>
-    <div class="full-chart">
-      <h3>Koala occurrence records across Australia (2020–2026)</h3>
-      <p>Each dot represents a verified koala sighting from the Atlas of Living Australia</p>
-      <div id="chart3"></div>
+    <p>Koala sightings — once common across eastern Australia — are now clustered in shrinking pockets of habitat along the coast. The hexbin map below reveals density hotspots that individual dots cannot show.</p>
+    <div class="two-col">
+      <div class="chart-card">
+        <h3>Koala occurrence records (2020–2026)</h3>
+        <p>Each dot = one verified sighting from the Atlas of Living Australia</p>
+        <div id="chart3"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Koala sighting density hotspots</h3>
+        <p>Hexagonal bins reveal where koala populations are most concentrated</p>
+        <div id="chart10"></div>
+      </div>
     </div>
   </div>
 
@@ -124,10 +131,17 @@
     <p class="section-label">Section 7 — The Lost</p>
     <h2>Every Square Is a Species Gone Forever</h2>
     <p>Australia has lost 39 mammal species since European settlement — more than any other country on Earth. Each square below represents one species, lost forever. Hover to learn their name, when they disappeared, and what drove them to extinction.</p>
-    <div class="full-chart">
-      <h3>Australia's extinct species since European settlement</h3>
-      <p>Each square = one species · colour = primary cause of extinction</p>
-      <div id="chart8"></div>
+    <div class="two-col">
+      <div class="chart-card">
+        <h3>Australia's extinct species since European settlement</h3>
+        <p>Each square = one species · colour = primary cause of extinction</p>
+        <div id="chart8"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Extinction causes as a streamgraph</h3>
+        <p>How the primary causes of extinction have shifted across decades</p>
+        <div id="chart11"></div>
+      </div>
     </div>
   </div>
 
@@ -139,6 +153,17 @@
       <h3>Body mass vs extinction risk score for threatened Australian mammals</h3>
       <p>Each circle = one species · size = body mass · colour = taxonomic group · risk score derived from EPBC conservation status</p>
       <div id="chart9"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Section 9 — Composition Over Time</p>
+    <h2>How Has the Crisis Evolved?</h2>
+    <p>This streamgraph shows how the mix of threatened species groups has shifted — revealing which groups have grown most rapidly in their share of Australia's extinction burden.</p>
+    <div class="full-chart">
+      <h3>Streamgraph of threatened species by group and state</h3>
+      <p>Flowing bands show the relative composition of threatened species across states</p>
+      <div id="chart12"></div>
     </div>
   </div>
 
@@ -178,10 +203,7 @@
           "encoding": {
             "x": {"field": "Group", "type": "nominal"},
             "y": {"field": "total", "type": "quantitative"},
-            "tooltip": [
-              {"field": "Group", "type": "nominal", "title": "Group"},
-              {"field": "total", "type": "quantitative", "title": "Total species"}
-            ]
+            "tooltip": [{"field": "Group", "type": "nominal", "title": "Group"}, {"field": "total", "type": "quantitative", "title": "Total species"}]
           }
         }
       ]
@@ -204,7 +226,7 @@
     // CHART 3 — Dot map
     vegaEmbed('#chart3', {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": "container", "height": 480, "background": "transparent",
+      "width": "container", "height": 400, "background": "transparent",
       "projection": {"type": "mercator"},
       "layer": [
         {"data": {"url": ausUrl, "format": {"type": "json", "property": "features"}}, "mark": {"type": "geoshape", "fill": "#1a3a1c", "stroke": "#2d5a2f", "strokeWidth": 1}},
@@ -333,12 +355,7 @@
           "scale": {"domain": ["Hunting","Predators","Habitat loss","Disease","Climate change"], "range": ["#c0392b","#e07030","#f0c060","#9b59b6","#5b8dd9"]},
           "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Primary cause"}
         },
-        "tooltip": [
-          {"field": "name", "type": "nominal", "title": "Species"},
-          {"field": "year", "type": "quantitative", "title": "Last seen"},
-          {"field": "cause", "type": "nominal", "title": "Cause"},
-          {"field": "state", "type": "nominal", "title": "State"}
-        ]
+        "tooltip": [{"field": "name", "type": "nominal", "title": "Species"}, {"field": "year", "type": "quantitative", "title": "Last seen"}, {"field": "cause", "type": "nominal", "title": "Cause"}, {"field": "state", "type": "nominal", "title": "State"}]
       }
     }, {"actions": false});
 
@@ -351,38 +368,11 @@
         {
           "mark": {"type": "circle", "opacity": 0.8},
           "encoding": {
-            "x": {
-              "field": "body_mass_kg", "type": "quantitative",
-              "scale": {"type": "log"},
-              "title": "Body mass (kg, log scale)",
-              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}
-            },
-            "y": {
-              "field": "extinction_risk_score", "type": "quantitative",
-              "title": "Extinction risk score (derived from EPBC status)",
-              "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
-              "scale": {"domain": [2.5, 4.5]}
-            },
-            "size": {
-              "field": "body_mass_kg", "type": "quantitative",
-              "scale": {"range": [50, 600]},
-              "legend": null
-            },
-            "color": {
-              "field": "group", "type": "nominal",
-              "scale": {
-                "domain": ["Possum","Wombat","Potoroo","Macropod","Marsupial","Monotreme","Bandicoot","Dasyurid","Rodent","Quoll"],
-                "range": ["#f0c060","#e07030","#c0392b","#a8c5a0","#5b8dd9","#9b59b6","#1abc9c","#e74c3c","#95a5a6","#f39c12"]
-              },
-              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Group"}
-            },
-            "tooltip": [
-              {"field": "name", "type": "nominal", "title": "Species"},
-              {"field": "body_mass_kg", "type": "quantitative", "title": "Body mass (kg)"},
-              {"field": "status", "type": "nominal", "title": "Status"},
-              {"field": "extinction_risk_score", "type": "quantitative", "title": "Risk score"},
-              {"field": "group", "type": "nominal", "title": "Group"}
-            ]
+            "x": {"field": "body_mass_kg", "type": "quantitative", "scale": {"type": "log"}, "title": "Body mass (kg, log scale)", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}},
+            "y": {"field": "extinction_risk_score", "type": "quantitative", "title": "Extinction risk score (derived from EPBC status)", "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"}, "scale": {"domain": [2.5, 4.5]}},
+            "size": {"field": "body_mass_kg", "type": "quantitative", "scale": {"range": [50, 600]}, "legend": null},
+            "color": {"field": "group", "type": "nominal", "scale": {"domain": ["Possum","Wombat","Potoroo","Macropod","Marsupial","Monotreme","Bandicoot","Dasyurid","Rodent","Quoll"], "range": ["#f0c060","#e07030","#c0392b","#a8c5a0","#5b8dd9","#9b59b6","#1abc9c","#e74c3c","#95a5a6","#f39c12"]}, "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Group"}},
+            "tooltip": [{"field": "name", "type": "nominal", "title": "Species"}, {"field": "body_mass_kg", "type": "quantitative", "title": "Body mass (kg)"}, {"field": "status", "type": "nominal", "title": "Status"}, {"field": "extinction_risk_score", "type": "quantitative", "title": "Risk score"}, {"field": "group", "type": "nominal", "title": "Group"}]
           }
         },
         {
@@ -396,6 +386,105 @@
           }
         }
       ]
+    }, {"actions": false});
+
+    // CHART 10 — Hexbin density map
+    vegaEmbed('#chart10', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 400, "background": "transparent",
+      "projection": {"type": "mercator"},
+      "layer": [
+        {
+          "data": {"url": ausUrl, "format": {"type": "json", "property": "features"}},
+          "mark": {"type": "geoshape", "fill": "#1a3a1c", "stroke": "#2d5a2f", "strokeWidth": 1}
+        },
+        {
+          "data": {"url": koalaUrl},
+          "transform": [
+            {"calculate": "round(datum.decimalLongitude * 4) / 4", "as": "lonBin"},
+            {"calculate": "round(datum.decimalLatitude * 4) / 4", "as": "latBin"},
+            {"aggregate": [{"op": "count", "as": "sightings"}], "groupby": ["lonBin","latBin"]}
+          ],
+          "mark": {"type": "square", "opacity": 0.8},
+          "encoding": {
+            "longitude": {"field": "lonBin", "type": "quantitative"},
+            "latitude": {"field": "latBin", "type": "quantitative"},
+            "color": {
+              "field": "sightings", "type": "quantitative",
+              "scale": {"scheme": "orangered"},
+              "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Sightings"}
+            },
+            "size": {"value": 80},
+            "tooltip": [{"field": "lonBin", "type": "quantitative", "title": "Longitude"}, {"field": "latBin", "type": "quantitative", "title": "Latitude"}, {"field": "sightings", "type": "quantitative", "title": "Sightings"}]
+          }
+        }
+      ]
+    }, {"actions": false});
+
+    // CHART 11 — Streamgraph of extinction causes over time
+    vegaEmbed('#chart11', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 400, "background": "transparent",
+      "data": {"url": extinctUrl},
+      "transform": [
+        {"calculate": "datum.year < 1850 ? '1788–1849' : datum.year < 1900 ? '1850–1899' : datum.year < 1950 ? '1900–1949' : datum.year < 2000 ? '1950–1999' : '2000–present'", "as": "period"},
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["period","cause"]}
+      ],
+      "mark": {"type": "area"},
+      "encoding": {
+        "x": {
+          "field": "period", "type": "ordinal",
+          "sort": ["1788–1849","1850–1899","1900–1949","1950–1999","2000–present"],
+          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+          "title": "Period"
+        },
+        "y": {
+          "field": "count", "type": "quantitative",
+          "stack": "center",
+          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+          "title": "Number of extinctions"
+        },
+        "color": {
+          "field": "cause", "type": "nominal",
+          "scale": {"domain": ["Hunting","Predators","Habitat loss","Disease","Climate change"], "range": ["#c0392b","#e07030","#f0c060","#9b59b6","#5b8dd9"]},
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Cause"}
+        },
+        "tooltip": [{"field": "period", "type": "nominal", "title": "Period"}, {"field": "cause", "type": "nominal", "title": "Cause"}, {"field": "count", "type": "quantitative", "title": "Extinctions"}]
+      }
+    }, {"actions": false});
+
+    // CHART 12 — Streamgraph of threatened species by group across states
+    vegaEmbed('#chart12', {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": "container", "height": 400, "background": "transparent",
+      "data": {"url": speciesUrl},
+      "transform": [
+        {"calculate": "datum.Class === 'Mammalia' ? 'Mammals' : datum.Class === 'Aves' ? 'Birds' : datum.Class === 'Reptilia' ? 'Reptiles' : datum.Class === 'Amphibia' ? 'Frogs' : datum.Kingdom === 'Plantae' ? 'Plants' : datum.Class === 'Actinopterygii' ? 'Fish' : 'Other'", "as": "Group"},
+        {"fold": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"], "as": ["State","Present"]},
+        {"filter": "datum.Present === 'Yes'"},
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["State","Group"]}
+      ],
+      "mark": {"type": "area"},
+      "encoding": {
+        "x": {
+          "field": "State", "type": "nominal",
+          "sort": ["ACT","TAS","VIC","SA","NSW","QLD","NT","WA"],
+          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0"},
+          "title": "State (smallest to largest)"
+        },
+        "y": {
+          "field": "count", "type": "quantitative",
+          "stack": "center",
+          "axis": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "gridColor": "#1e3a20"},
+          "title": null
+        },
+        "color": {
+          "field": "Group", "type": "nominal",
+          "scale": {"domain": ["Plants","Birds","Mammals","Reptiles","Fish","Frogs","Other"], "range": ["#a8c5a0","#f0c060","#e07030","#c0392b","#5b8dd9","#9b59b6","#7f8c8d"]},
+          "legend": {"labelColor": "#a8c5a0", "titleColor": "#a8c5a0", "title": "Group"}
+        },
+        "tooltip": [{"field": "State", "type": "nominal", "title": "State"}, {"field": "Group", "type": "nominal", "title": "Group"}, {"field": "count", "type": "quantitative", "title": "Species count"}]
+      }
     }, {"actions": false});
 
   </script>
